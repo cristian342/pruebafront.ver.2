@@ -1,0 +1,10 @@
+{
+  "version": "0.2.1",
+  "tasks": [
+    {
+      "taskLabel": "tarea-package",
+      "appliesTo": "package.json",
+      "type": "launch"
+    }
+  ]
+}
