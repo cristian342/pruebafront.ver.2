@@ -1,14 +1,9 @@
+import React from 'react';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import {
-    AppBar,
-    Toolbar,
-    Typography,
-    Button,
-    Box,
-    Container,
+import { AppBar, Toolbar, Typography, Button, Box, Container,
 } from '@mui/material';
 import { HomePage } from './pages/Homepage';
-import { DocumentTypeManagementPage } from './pages/DocumentTypeManagementPage.tsx';
+import { DocumentTypeManagementPage } from './pages/DocumentTypeManagementPage';
 
 /**
  * Componente principal de la aplicación.

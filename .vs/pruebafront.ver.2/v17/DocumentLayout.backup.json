@@ -1,0 +1,214 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentForm.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\infrastructure\\ui\\components\\DocumentForm.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentList.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\infrastructure\\ui\\components\\DocumentList.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\pages\\Homepage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\infrastructure\\ui\\pages\\Homepage.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\infrastructure\\ui\\App.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:index.html||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\main.tsx||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\tsconfig.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:tsconfig.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts||{0F2454B1-A556-402D-A7D0-1FDE7F99DEE0}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|solutionrelative:package-lock.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 14,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:132:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:131:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:130:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{1c4feeaa-4718-4aa9-859d-94ce25d182ba}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:129:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:128:0:{75188d03-9892-4ae2-abf1-207126247ce5}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
+              "Title": "index.html",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\index.html",
+              "RelativeDocumentMoniker": "index.html",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\index.html",
+              "RelativeToolTip": "index.html",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAoAAAA5AAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001512|",
+              "WhenOpened": "2025-07-21T20:24:07.468Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 6,
+              "Title": "tsconfig.json",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\tsconfig.json",
+              "RelativeDocumentMoniker": "tsconfig.json",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\tsconfig.json",
+              "RelativeToolTip": "tsconfig.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T20:12:53.699Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "DocumentList.tsx",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentList.tsx",
+              "RelativeDocumentMoniker": "src\\infrastructure\\ui\\components\\DocumentList.tsx",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentList.tsx",
+              "RelativeToolTip": "src\\infrastructure\\ui\\components\\DocumentList.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAACsAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T20:02:35.145Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "package.json",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package.json",
+              "RelativeDocumentMoniker": "package.json",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package.json",
+              "RelativeToolTip": "package.json",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAXAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T17:15:44.996Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "LocalStorageDocumentRepository.ts",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts",
+              "RelativeDocumentMoniker": "src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts",
+              "RelativeToolTip": "src\\infrastructure\\persistence\\local-storage\\LocalStorageDocumentRepository.ts",
+              "ViewState": "AgIAAB0AAAAAAAAAAAAQwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T19:46:40.023Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "package-lock.json",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package-lock.json",
+              "RelativeDocumentMoniker": "package-lock.json",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\package-lock.json",
+              "RelativeToolTip": "package-lock.json",
+              "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
+              "WhenOpened": "2025-07-21T19:21:36.332Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
+              "Title": "main.tsx",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\main.tsx",
+              "RelativeDocumentMoniker": "src\\main.tsx",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\main.tsx",
+              "RelativeToolTip": "src\\main.tsx",
+              "ViewState": "AgIAABMAAAAAAAAAAAAAABMAAAACAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T17:23:48.52Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "App.tsx",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\App.tsx",
+              "RelativeDocumentMoniker": "src\\infrastructure\\ui\\App.tsx",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\App.tsx",
+              "RelativeToolTip": "src\\infrastructure\\ui\\App.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAAzAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T17:23:44.209Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "DocumentForm.tsx",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentForm.tsx",
+              "RelativeDocumentMoniker": "src\\infrastructure\\ui\\components\\DocumentForm.tsx",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\components\\DocumentForm.tsx",
+              "RelativeToolTip": "src\\infrastructure\\ui\\components\\DocumentForm.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T17:12:17.585Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "Homepage.tsx",
+              "DocumentMoniker": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\pages\\Homepage.tsx",
+              "RelativeDocumentMoniker": "src\\infrastructure\\ui\\pages\\Homepage.tsx",
+              "ToolTip": "C:\\Users\\J4-077\\source\\repos\\pruebafront.ver.2\\src\\infrastructure\\ui\\pages\\Homepage.tsx",
+              "RelativeToolTip": "src\\infrastructure\\ui\\pages\\Homepage.tsx",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAaAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003213|",
+              "WhenOpened": "2025-07-21T16:56:01.184Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

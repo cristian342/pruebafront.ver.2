@@ -7,7 +7,10 @@
   },
   "homepage": "/pruevapgd-main/",
   "devDependencies": {
+    "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
+    "@types/react-router-dom": "^5.3.3",
+    "@types/uuid": "^10.0.0",
     "typescript": "^5.8.3",
     "vite": "^7.0.2"
   },
@@ -16,10 +19,9 @@
     "@emotion/styled": "^11.14.1",
     "@mui/icons-material": "^5.18.0",
     "@mui/material": "^5.18.0",
-    "@types/uuid": "^10.0.0",
-    "react": "^19.1.0",
-    "react-dom": "^19.1.0",
-    "react-router-dom": "^7.6.3",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^7.7.0",
     "uuid": "^11.1.0"
   }
 }

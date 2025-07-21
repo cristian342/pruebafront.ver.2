@@ -1,0 +1,17 @@
+{
+  "ExpandedNodes": [
+    "",
+    "\\pruevapgd-main",
+    "\\src",
+    "\\src\\application",
+    "\\src\\application\\Use-cases",
+    "\\src\\domain",
+    "\\src\\domain\\models",
+    "\\src\\domain\\repositories",
+    "\\src\\infrastructure",
+    "\\src\\infrastructure\\ui",
+    "\\src\\infrastructure\\ui\\pages"
+  ],
+  "SelectedNode": "\\src\\application\\Use-cases",
+  "PreviewInSolutionExplorer": false
+}
