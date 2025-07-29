@@ -47,7 +47,7 @@ const iconos: Record<ResultadoTipo, React.ReactElement> = {
   exito: <CheckCircleIcon color="success" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
   error: <ErrorIcon color="error" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
   advertencia: <WarningIcon color="warning" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
-  info: <InfoIcon color="info" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
+  aviso: <InfoIcon color="info" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
 };
 
 // Componente funcional ModalMensaje
