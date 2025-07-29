@@ -1,46 +1,76 @@
-import type { Document } from '../../../domain/models/Document.ts';
-import type { DocumentRepository } from '../../../domain/repositories/DocumentRepository.ts';
+import type { Document } from '../../../domain/models/Document.ts'; // Importa la interfaz de tipo Documento
+import type { DocumentRepository } from '../../../domain/repositories/DocumentRepository.ts'; // Importa la interfaz del repositorio
 
+// Define la clave bajo la cual se almacenarán los documentos en localStorage.
 const STORAGE_KEY = 'documents';
 
 /**
- * Implementación del DocumentRepository que usa localStorage.
+ * Implementación concreta del DocumentRepository que utiliza el almacenamiento local (localStorage)
+ * del navegador para la persistencia de datos.
+ * Esta clase cumple con el contrato definido por la interfaz DocumentRepository.
  */
 export class LocalStorageDocumentRepository implements DocumentRepository {
+  /**
+   * Método privado para obtener todos los documentos directamente de localStorage.
+   * Incluye manejo de errores para el parseo de JSON.
+   * @returns Una promesa que resuelve con un array de Documento.
+   */
   private async getRawAll(): Promise<Document[]> {
-    const raw = localStorage.getItem(STORAGE_KEY);
-    if (!raw) return [];
+    const raw = localStorage.getItem(STORAGE_KEY); // Obtiene la cadena JSON de localStorage
+    if (!raw) return []; // Si no hay datos, retorna un array vacío
     try {
-      return JSON.parse(raw);
+      return JSON.parse(raw); // Intenta parsear la cadena JSON
     } catch (error) {
-      console.error('Error parsing documents from localStorage:', error);
-      return [];
+      console.error('Error parsing documents from localStorage:', error); // Registra el error si el parseo falla
+      return []; // Retorna un array vacío en caso de error de parseo
     }
   }
 
+  /**
+   * Guarda un documento. Si el documento ya existe (mismo ID), lo actualiza; de lo contrario, lo añade.
+   * @param document El objeto Documento a guardar o actualizar.
+   * @returns Una promesa que resuelve cuando la operación se ha completado.
+   */
   async save(document: Document): Promise<void> {
-    const docs = await this.getRawAll();
+    const docs = await this.getRawAll(); // Obtiene la lista actual de documentos
+    // Busca el índice del documento si ya existe en la lista.
     const index = docs.findIndex(d => d.id === document.id);
     if (index !== -1) {
-      docs[index] = document;
+      docs[index] = document; // Si existe, actualiza el objeto en su posición
     } else {
-      docs.push(document);
+      docs.push(document); // Si no existe, añade el nuevo documento al final del array
     }
+    // Guarda la lista completa (actualizada o con el nuevo elemento) de nuevo en localStorage.
     localStorage.setItem(STORAGE_KEY, JSON.stringify(docs));
   }
 
+  /**
+   * Recupera todos los documentos almacenados, independientemente de su estado.
+   * @returns Una promesa que resuelve con un array de Documento.
+   */
   async getAll(): Promise<Document[]> {
-    const docs = await this.getRawAll();
-    return docs; // Return all documents, regardless of status
+    const docs = await this.getRawAll(); // Obtiene todos los documentos sin procesar
+    return docs; // Retorna todos los documentos, sin filtrar por estado
   }
 
+  /**
+   * Busca un documento específico por su ID.
+   * @param id El ID del documento a buscar.
+   * @returns Una promesa que resuelve con el Documento encontrado o null si no existe.
+   */
   async findById(id: string): Promise<Document | null> {
-    const docs = await this.getRawAll();
-    return docs.find(doc => doc.id === id) || null;
+    const docs = await this.getRawAll(); // Obtiene todos los documentos
+    return docs.find(doc => doc.id === id) || null; // Busca el documento por ID y retorna null si no lo encuentra
   }
 
-  // The delete method now does nothing, as soft delete is handled by the use case
+  /**
+   * Este método no realiza ninguna operación, ya que la "eliminación" de documentos
+   * se maneja como un cambio de estado (eliminación lógica) en el caso de uso,
+   * no como una eliminación física del almacenamiento.
+   * @param id El ID del documento a "eliminar" (su estado se cambia en el caso de uso).
+   * @returns Una promesa que resuelve cuando la operación se ha completado (inmediatamente).
+   */
   async delete(id: string): Promise<void> {
-    // No operation needed here, as the use case handles the status change
+    // No se necesita ninguna operación aquí, ya que el caso de uso maneja el cambio de estado a 'deleted'.
   }
 }
