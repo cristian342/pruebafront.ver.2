@@ -18,7 +18,12 @@ export class LocalStorageDocumentTypeRepository implements DocumentTypeRepositor
   async getAll(): Promise<DocumentType[]> {
     const data = localStorage.getItem(LOCAL_STORAGE_KEY); // Intenta obtener los datos de localStorage
     if (data) {
-      return JSON.parse(data); // Si hay datos, los parsea de JSON a un array de objetos
+      // Si hay datos, los parsea de JSON y asegura que el 'id' sea siempre un string
+      const parsedData: DocumentType[] = JSON.parse(data);
+      return parsedData.map(type => ({
+        ...type,
+        id: String(type.id) // Asegura que el ID sea un string
+      }));
     } else {
       // Si no hay datos almacenados, define un conjunto de tipos de documento predeterminados.
       const defaultTypes: DocumentType[] = [
