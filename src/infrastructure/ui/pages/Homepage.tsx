@@ -17,6 +17,8 @@ import {
     Container, // Limita el ancho del contenido
 } from '@mui/material';
 import type { Document } from '../../../domain/models/Document'; // Importa la interfaz de tipo Documento
+import ModalMensaje from '../../../domain/Modals/Modalmessage'; // Importa el componente ModalMensaje
+import { ResultadoTipo } from '../../../domain/Modals/Modalmessage.types'; // Importa el tipo ResultadoTipo
 
 /**
  * Página principal de la aplicación para la gestión de documentos.
@@ -33,6 +35,15 @@ export function HomePage() {
     const [viewingDocument, setViewingDocument] = useState<Document | null>(null); // Documento que se está visualizando
     const [openEditDialog, setOpenEditDialog] = useState(false); // Controla la visibilidad del diálogo de edición
     const [openViewDialog, setOpenViewDialog] = useState(false); // Controla la visibilidad del diálogo de visualización
+    const [modalState, setModalState] = useState<{
+        open: boolean;
+        resultado: ResultadoTipo;
+        mensaje: string;
+    }>({
+        open: false,
+        resultado: 'info',
+        mensaje: '',
+    });
 
     /**
      * Maneja la acción de editar un documento.
@@ -128,6 +139,28 @@ export function HomePage() {
         setViewingDocument(null);
     };
 
+    const handleAddDocumentSubmit = async (docData: Omit<Document, 'id' | 'status'>) => {
+        try {
+            await addDocument(docData);
+            setModalState({
+                open: true,
+                resultado: 'exito',
+                mensaje: 'Documento guardado exitosamente.',
+            });
+        } catch (error) {
+            console.error('Error al guardar el documento:', error);
+            setModalState({
+                open: true,
+                resultado: 'error',
+                mensaje: 'Error al guardar el documento. Por favor, intente de nuevo.',
+            });
+        }
+    };
+
+    const handleCloseModal = () => {
+        setModalState(prev => ({ ...prev, open: false }));
+    };
+
     return (
         // Container: Limita el ancho del contenido principal de la página.
         // maxWidth="lg": Establece un ancho máximo grande.
@@ -150,9 +183,9 @@ export function HomePage() {
                             Subir Nuevo Documento
                         </Typography>
                         {/* DocumentForm: Componente para el formulario de subida de documentos.
-                            onSubmit: Se vincula a la función addDocument del hook useDocuments.
+                            onSubmit: Se vincula a la función handleAddDocumentSubmit.
                             documentTypes: Pasa la lista de tipos de documento para el selector. */}
-                        <DocumentForm onSubmit={addDocument} documentTypes={documentTypes} />
+                        <DocumentForm onSubmit={handleAddDocumentSubmit} documentTypes={documentTypes} />
                     </Box>
                 </Grid>
 
@@ -250,6 +283,14 @@ export function HomePage() {
                     <Button onClick={handleCloseViewDialog}>Cerrar</Button>
                 </DialogActions>
             </Dialog>
+
+            {/* Modal de Mensaje */}
+            <ModalMensaje
+                open={modalState.open}
+                onClose={handleCloseModal}
+                resultado={modalState.resultado}
+                mensajeModal={modalState.mensaje}
+            />
         </Container>
     );
 }
