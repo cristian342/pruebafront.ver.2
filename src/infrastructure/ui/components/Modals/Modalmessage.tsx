@@ -13,7 +13,12 @@ interface CircularProgressWithLabelProps {
   value: number;
 }
 
-const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ value }) => {
+interface CircularProgressWithLabelProps {
+  value: number; // This will be the progress percentage (0-100)
+  displayValue: number; // This will be the countdown number (10-1)
+}
+
+const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ value, displayValue }) => {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant="determinate" value={value} size={60} thickness={5} />
@@ -30,7 +35,7 @@ const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ v
         }}
       >
         <Typography variant="caption" component="div" color="text.secondary">
-          {`${Math.round(value)}%`}
+          {`${Math.round(displayValue)} seg`}
         </Typography>
       </Box>
     </Box>
@@ -41,7 +46,7 @@ const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ v
 const iconos: Record<ResultadoTipo, React.ReactElement> = {
   exito: <CheckCircleIcon color="success" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
   error: <ErrorIcon color="error" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
-  peligro: <WarningIcon color="warning" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
+  advertencia: <WarningIcon color="warning" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
   info: <InfoIcon color="info" sx={{ fontSize: { xs: 28, sm: 32 } }} />,
 };
 
@@ -55,8 +60,7 @@ const ModalMensaje: React.FC<ModalMensajeProps> = ({
 }) => {
   // Estado para el tiempo restante del temporizador (en segundos)
   const [remainingTime, setRemainingTime] = useState(timer / 1000);
-  // Estado para el progreso de la barra lineal (de 0 a 100)
-  const [progress, setProgress] = useState(100);
+  const [progress, setProgress] = useState(100); // State for the circular progress (0-100)
 
   // Efecto para manejar el autocierre y el contador de tiempo
   useEffect(() => {
@@ -71,42 +75,39 @@ const ModalMensaje: React.FC<ModalMensajeProps> = ({
     setRemainingTime(timer / 1000);
     setProgress(100);
 
-    // Intervalo para actualizar el tiempo restante cada segundo
+    // Intervalo para actualizar el tiempo restante y el progreso cada segundo
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => {
-        if (prevTime <= 1) {
+        const newTime = prevTime - 1;
+        if (newTime <= 0) {
           clearInterval(interval); // Detiene el intervalo si el tiempo se agota
           onClose(); // Cierra el modal
           return 0;
         }
-        return prevTime - 1; // Decrementa el tiempo
+        return newTime; // Decrementa el tiempo
       });
-    }, 1000);
 
-    // Intervalo para actualizar el progreso de la barra lineal
-    const progressInterval = setInterval(() => {
       setProgress((prevProgress) => {
-        if (prevProgress <= 0) {
-          clearInterval(progressInterval); // Detiene el intervalo si el progreso llega a 0
+        // Calculate the decrement based on the total timer duration
+        const decrement = 100 / (timer / 1000);
+        const newProgress = prevProgress - decrement;
+        if (newProgress <= 0) {
           return 0;
         }
-        // Calcula el decremento del progreso basado en la duración total del temporizador
-        return prevProgress - (100 / (timer / 1000));
+        return newProgress;
       });
     }, 1000);
 
     // Temporizador principal para cerrar el modal después de la duración especificada
     const timeout = setTimeout(() => {
-      clearInterval(interval); // Limpia el intervalo del contador
-      clearInterval(progressInterval); // Limpia el intervalo del progreso
+      clearInterval(interval); // Limpia el intervalo del contador y progreso
       onClose(); // Cierra el modal
     }, timer);
 
     // Función de limpieza que se ejecuta cuando el componente se desmonta o las dependencias cambian
     return () => {
       clearTimeout(timeout); // Limpia el temporizador principal
-      clearInterval(interval); // Limpia el intervalo del contador
-      clearInterval(progressInterval); // Limpia el intervalo del progreso
+      clearInterval(interval); // Limpia el intervalo del contador y progreso
     };
   }, [open, timer, onClose]); // Dependencias del efecto: open, timer, onClose
 
@@ -219,8 +220,11 @@ const ModalMensaje: React.FC<ModalMensajeProps> = ({
 
         {/* Sección del temporizador y barra de progreso, solo si hay un temporizador definido */}
         {timer && (
-          <Box sx={{ mt: 3, width: '100%', display: 'flex', justifyContent: 'center' }}>
-            <CircularProgressWithLabel value={progress} />
+          <Box sx={{ mt: 3, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+            <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+              Esta ventana se cerrará en:
+            </Typography>
+            <CircularProgressWithLabel value={progress} displayValue={remainingTime} />
           </Box>
         )}
       </Box>

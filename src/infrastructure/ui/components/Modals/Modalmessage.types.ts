@@ -1,5 +1,5 @@
 // Modalmessage.types.ts
-export type ResultadoTipo = 'exito' | 'error' | 'peligro' | 'info';
+export type ResultadoTipo = 'exito' | 'error' | 'advertencia' | 'info';
 
 export interface ModalMensajeProps {
     open: boolean;
