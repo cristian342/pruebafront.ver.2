@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { DocumentForm } from '../components/DocumentForm';
-import { DocumentList } from '../components/DocumentList';
+import { DocumentDataGridModal } from '../components/DocumentDataGridModal/DocumentDataGridModal';
 import { useDocuments } from '../hooks/useDocuments';
 import { useDocumentTypes } from '../hooks/useDocumentTypes';
 import { Grid, Box, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, Container } from '@mui/material';
@@ -36,18 +36,10 @@ export function HomePage() {
   const [viewingDocument, setViewingDocument] = useState<Document | null>(null);
   const [openEditDialog, setOpenEditDialog] = useState(false);
   const [openViewDialog, setOpenViewDialog] = useState(false);
-  // Removed local modalState as it's now managed by useDocuments hook
-  /*
-  const [modalState, setModalState] = useState<{
-    open: boolean;
-    resultado: ResultadoTipo;
-    mensaje: string;
-  }>({
-    open: false,
-    resultado: 'info',
-    mensaje: '',
-  });
-  */
+  const [openDataGridModal, setOpenDataGridModal] = useState(false);
+
+  const handleOpenDataGridModal = () => setOpenDataGridModal(true);
+  const handleCloseDataGridModal = () => setOpenDataGridModal(false);
 
   const handleEdit = (doc: Document) => {
     setEditingDocument(doc);
@@ -151,17 +143,11 @@ export function HomePage() {
           </Box>
         </Grid>
 
-        <Grid item xs={12} sm={6}>
-          <Box component="div">
-            <DocumentList
-              documents={documents}
-              documentTypes={documentTypes}
-              onEdit={handleEdit}
-              onView={handleView}
-              onDelete={handleDelete}
-              onDownload={handleDownload}
-              onReactivate={handleReactivate}
-            />
+        <Grid item xs={12}>
+          <Box sx={{ mt: 4, mb: 2 }}>
+            <Button variant="contained" onClick={handleOpenDataGridModal}>
+              Ver Lista de Documentos
+            </Button>
           </Box>
         </Grid>
       </Grid>
@@ -248,6 +234,19 @@ export function HomePage() {
         onClose={closeModal}
         resultado={modalType}
         mensajeModal={modalMessage}
+      />
+
+      {/* Modal de DataGrid */}
+      <DocumentDataGridModal
+        open={openDataGridModal}
+        onClose={handleCloseDataGridModal}
+        documents={documents}
+        documentTypes={documentTypes}
+        onEdit={handleEdit}
+        onView={handleView}
+        onDelete={handleDelete}
+        onDownload={handleDownload}
+        onReactivate={handleReactivate}
       />
     </Container>
   );
