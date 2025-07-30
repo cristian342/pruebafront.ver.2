@@ -130,7 +130,17 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
 
     return (
         <LocalizationProvider dateAdapter={AdapterDayjs} adapterLocale="es">
-            <Box component="form" onSubmit={handleSubmit} sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
+            <Box
+                component="form"
+                onSubmit={handleSubmit}
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    gap: 2,
+                    alignItems: 'center', // Centra horizontalmente los elementos del formulario
+                    '& .MuiTextField-root, & .MuiFormControl-root': { width: '100%', maxWidth: '400px' }, // Ajusta el ancho de los campos
+                }}
+            >
                 <TextField
                     label="Nombre del Documento"
                     name="name"

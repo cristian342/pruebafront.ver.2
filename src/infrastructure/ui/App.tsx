@@ -62,20 +62,30 @@ function App() {
                 </Toolbar>
             </AppBar>
 
-            {/* Container: Limita el ancho del contenido principal de la aplicación.
-                maxWidth="lg": Establece un ancho máximo grande.
-                sx={{ mt: 4 }}: Añade un margen superior de 4 unidades. */}
-            <Container maxWidth="lg" sx={{ mt: 4 }}>
-                {/* Routes: Contenedor para las definiciones de rutas. Renderiza la primera Route que coincide. */}
-                <Routes>
-                    {/* Route: Define una ruta específica.
-                        path="/": La ruta raíz.
-                        element={<HomePage />}: El componente a renderizar cuando la URL coincide con la ruta. */}
-                    <Route path="/" element={<HomePage />} />
-                    {/* Route: Define la ruta para la página de gestión de tipos de documento. */}
-                    <Route path="/document-types" element={<DocumentTypeManagementPage />} />
-                </Routes>
-            </Container>
+            {/* Box: Contenedor principal que centra todo el contenido de la aplicación. */}
+            <Box
+                sx={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    alignItems: 'center', // Centra horizontalmente los elementos hijos
+                    width: '100%', // Asegura que el Box ocupe todo el ancho disponible
+                }}
+            >
+                {/* Container: Limita el ancho del contenido principal de la aplicación.
+                    maxWidth="lg": Establece un ancho máximo grande.
+                    sx={{ mt: 4 }}: Añade un margen superior de 4 unidades. */}
+                <Container maxWidth="lg" sx={{ mt: 4 }}>
+                    {/* Routes: Contenedor para las definiciones de rutas. Renderiza la primera Route que coincide. */}
+                    <Routes>
+                        {/* Route: Define una ruta específica.
+                            path="/": La ruta raíz.
+                            element={<HomePage />}: El componente a renderizar cuando la URL coincide con la ruta. */}
+                        <Route path="/" element={<HomePage />} />
+                        {/* Route: Define la ruta para la página de gestión de tipos de documento. */}
+                        <Route path="/document-types" element={<DocumentTypeManagementPage />} />
+                    </Routes>
+                </Container>
+            </Box>
         </Router>
     );
 }

@@ -123,14 +123,14 @@ export function HomePage() {
     : '';
 
   return (
-    <Container maxWidth="lg" sx={{ py: 4 }}>
+    <Container maxWidth="lg" sx={{ py: 4, textAlign: 'center' }}> {/* Added textAlign: 'center' */}
       <Typography variant="h4" gutterBottom>
         SPA de Gestión de Documentos
       </Typography>
 
-      <Grid container spacing={4}>
+      <Grid container spacing={4} justifyContent="center"> {/* Added justifyContent="center" */}
         <Grid item xs={12} sm={6}>
-          <Box component="div">
+          <Box component="div" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}> {/* Added flexbox for centering */}
             <Typography variant="h5" gutterBottom>
               Subir Nuevo Documento
             </Typography>
@@ -144,7 +144,7 @@ export function HomePage() {
         </Grid>
 
         <Grid item xs={12}>
-          <Box sx={{ mt: 4, mb: 2 }}>
+          <Box sx={{ mt: 4, mb: 2, display: 'flex', justifyContent: 'center' }}> {/* Added flexbox for centering */}
             <Button variant="contained" onClick={handleOpenDataGridModal}>
               Ver Lista de Documentos
             </Button>
