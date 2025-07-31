@@ -1,19 +1,15 @@
-import React, { useState, useMemo } from 'react';
-import {
-  Box, Button, Dialog, DialogTitle, DialogContent, DialogActions,
-  useMediaQuery, useTheme, TextField,
-} from '@mui/material';
-import {
-  DataGrid, GridColDef, GridActionsCellItem, GridRowParams, GridValueGetter,
-} from '@mui/x-data-grid';
+import React, { useState, useMemo, useCallback } from 'react';
+import { Box, Button, Dialog, DialogTitle, DialogContent, DialogActions, useMediaQuery, useTheme, TextField, } from '@mui/material';
+import { DataGrid, GridColDef, GridActionsCellItem, GridRowParams, GridValueGetter, } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
 import VisibilityIcon from '@mui/icons-material/Visibility';
 import DownloadIcon from '@mui/icons-material/Download';
 import RestoreFromTrashIcon from '@mui/icons-material/RestoreFromTrash';
-
+import dayjs, { Dayjs } from 'dayjs'; // Import dayjs and Dayjs
 import type { Document } from '../../../../domain/models/Document';
 import type { DocumentType } from '../../../../domain/models/DocumentType';
+import { ResponsiveDateTimePicker } from '../datepicker/DatePicker'; // Import the DatePicker component
 
 interface DocumentDataGridModalProps {
   open: boolean;
@@ -35,23 +31,23 @@ export function DocumentDataGridModal({
 
   const [filterName, setFilterName] = useState('');
   const [filterType, setFilterType] = useState('');
-  const [filterDate, setFilterDate] = useState('');
+  const [filterDate, setFilterDate] = useState<Dayjs | null>(null); // State for the date picker
   const [filterStatus, setFilterStatus] = useState('active');
 
-  const getDocumentTypeName = (id: string | null | undefined) => {
+  const getDocumentTypeName = useCallback((id: string | null | undefined) => {
     if (!id) return 'Tipo Desconocido';
     const type = documentTypes.find(dt => String(dt.id) === String(id));
     return type ? type.name : 'Tipo Desconocido';
-  };
+  }, [documentTypes]); // Dependency: documentTypes
 
-  const formatDate = (dateStr: string) => {
+  const formatDate = useCallback((dateStr: string) => {
     const date = new Date(dateStr);
     if (isNaN(date.getTime())) return '';
     const day = String(date.getDate()).padStart(2, '0');
     const month = String(date.getMonth() + 1).padStart(2, '0');
     const year = date.getFullYear();
     return `${day}/${month}/${year}`;
-  };
+  }, []); // No dependencies needed for this pure function
 
   const filteredDocuments = useMemo(() => {
     return documents.filter(document => {
@@ -59,8 +55,9 @@ export function DocumentDataGridModal({
       const typeMatch = filterType
         ? getDocumentTypeName(document.documentTypeId).toLowerCase().includes(filterType.toLowerCase())
         : true;
+      // Modified date filtering to use Dayjs object and compare dates
       const dateMatch = filterDate
-        ? formatDate(document.creationDate).includes(filterDate.toLowerCase())
+        ? dayjs(document.creationDate).format('DD/MM/YYYY') === filterDate.format('DD/MM/YYYY')
         : true;
       const statusMatch = filterStatus
         ? document.status?.toLowerCase().includes(filterStatus.toLowerCase())
@@ -68,7 +65,7 @@ export function DocumentDataGridModal({
 
       return nameMatch && typeMatch && dateMatch && statusMatch;
     });
-  }, [documents, filterName, filterType, filterDate, filterStatus, documentTypes]);
+  }, [documents, filterName, filterType, filterDate, filterStatus, getDocumentTypeName]); // Added getDocumentTypeName as dependency
 
 const columns: GridColDef[] = useMemo(() => {
   const baseColumns: GridColDef[] = [
@@ -116,10 +113,10 @@ const columns: GridColDef[] = useMemo(() => {
   return isMobile
     ? baseColumns.filter(col => ['name', 'status', 'actions'].includes(col.field as string))
     : baseColumns;
-}, [documentTypes, onEdit, onView, onDelete, onDownload, onReactivate, isMobile]);
+}, [documentTypes, onEdit, onView, onDelete, onDownload, onReactivate, isMobile, getDocumentTypeName, formatDate]); // Added getDocumentTypeName and formatDate as dependencies
 
   return (
-    <Dialog open={open} onClose={onClose} fullWidth maxWidth="md">
+    <Dialog open={open} onClose={onClose} fullWidth maxWidth="sm">
       <DialogTitle>Lista de Documentos</DialogTitle>
       <DialogContent>
         <Box sx={{ mb: 2, display: 'flex', gap: 2, flexWrap: 'wrap' }}>
@@ -137,12 +134,19 @@ const columns: GridColDef[] = useMemo(() => {
             onChange={(e) => setFilterType(e.target.value)}
             sx={{ flex: '1 1 200px' }}
           />
-          <TextField
-            label="Filtrar por Fecha (DD/MM/YYYY)"
-            aria-label="Filtro por fecha"
+          {/* Replaced TextField with ResponsiveDateTimePicker */}
+          <ResponsiveDateTimePicker
+            label="Filtrar por Fecha"
             value={filterDate}
-            onChange={(e) => setFilterDate(e.target.value)}
-            sx={{ flex: '1 1 200px' }}
+            onChange={setFilterDate}
+            format="DD/MM/YYYY" // Set the desired format
+            slotProps={{
+              textField: {
+                variant: 'outlined',
+                fullWidth: false,
+                sx: { flex: '1 1 200px' },
+              },
+            }}
           />
           <TextField
             label="Filtrar por Estado"

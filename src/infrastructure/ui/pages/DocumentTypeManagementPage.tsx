@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import { Typography, Container, Box, TextField, Button, List, ListItem, ListItemText, IconButton, Dialog, DialogTitle, DialogContent, DialogActions,} from '@mui/material';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
@@ -15,39 +15,39 @@ export function DocumentTypeManagementPage() {
     const [editingType, setEditingType] = useState<DocumentType | null>(null);
     const [openEditDialog, setOpenEditDialog] = useState(false);
 
-    const handleAddType = async () => {
+    const handleAddType = useCallback(async () => {
         if (newTypeName.trim()) {
             await addDocumentType(newTypeName.trim());
             setNewTypeName('');
         }
-    };
+    }, [newTypeName, addDocumentType]); // Dependencies: newTypeName, addDocumentType
 
-    const handleEditClick = (type: DocumentType) => {
+    const handleEditClick = useCallback((type: DocumentType) => {
         setEditingType(type);
         setNewTypeName(type.name); // Populate the input with the current name
         setOpenEditDialog(true);
-    };
+    }, []); // Dependencies: setEditingType, setNewTypeName, setOpenEditDialog
 
-    const handleUpdateType = async () => {
+    const handleUpdateType = useCallback(async () => {
         if (editingType && newTypeName.trim()) {
             await updateDocumentType(editingType.id, newTypeName.trim());
             setOpenEditDialog(false);
             setEditingType(null);
             setNewTypeName('');
         }
-    };
+    }, [editingType, newTypeName, updateDocumentType]); // Dependencies: editingType, newTypeName, updateDocumentType
 
-    const handleDeleteType = async (id: string) => {
+    const handleDeleteType = useCallback(async (id: string) => {
         if (confirm('¿Estás seguro de que quieres eliminar este tipo de documento?')) {
             await deleteDocumentType(id);
         }
-    };
+    }, [deleteDocumentType]); // Dependencies: deleteDocumentType
 
-    const handleCloseEditDialog = () => {
+    const handleCloseEditDialog = useCallback(() => {
         setOpenEditDialog(false);
         setEditingType(null);
         setNewTypeName('');
-    };
+    }, []); // Dependencies: setOpenEditDialog, setEditingType, setNewTypeName
 
     return (
         <Container maxWidth="md" sx={{ py: 4 }}>

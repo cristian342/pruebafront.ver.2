@@ -136,23 +136,30 @@ export function HomePage() {
         SPA de Gestión de Documentos
       </Typography>
 
+      <Box sx={{ mb: 4, display: 'flex', justifyContent: 'space-around', flexWrap: 'wrap' }}>
+        <Box sx={{ textAlign: 'center', p: 2 }}>
+          <Typography variant="h5">{documents.length}</Typography>
+          <Typography variant="subtitle1">Documentos Totales</Typography>
+        </Box>
+        <Box sx={{ textAlign: 'center', p: 2 }}>
+          <Typography variant="h5">{documentTypes.length}</Typography>
+          <Typography variant="subtitle1">Tipos de Documento</Typography>
+        </Box>
+      </Box>
+
       <Grid container spacing={4} justifyContent="center"> {/* Added justifyContent="center" */}
-        <Grid item xs={12} sm={6}>
+        <Grid item xs={12}> {/* Changed sm={6} to xs={12} to stack vertically */}
           <Box component="div" sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}> {/* Added flexbox for centering */}
             <Typography variant="h5" gutterBottom>
               Subir Nuevo Documento
             </Typography>
-
-            {/* Opción B: envolver para devolver void */}
             <DocumentForm
               onSubmit={(d) => { void handleAddDocumentSubmit(d as Omit<Document, 'id' | 'status'>); }}
-              // Removed documentTypes prop
             />
           </Box>
         </Grid>
-
-        <Grid item xs={12}>
-          <Box sx={{ mt: 4, mb: 2, display: 'flex', justifyContent: 'center' }}> {/* Added flexbox for centering */}
+        <Grid item xs={12}> {/* Changed sm={6} to xs={12} to stack vertically */}
+          <Box sx={{ mt: 4, mb: 2, display: 'flex', justifyContent: 'center', alignItems: 'center', height: '100%' }}> {/* Adjusted Box for alignment */}
             <Button variant="contained" onClick={handleOpenDataGridModal}>
               Ver Lista de Documentos
             </Button>
