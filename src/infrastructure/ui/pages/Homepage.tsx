@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { DocumentForm } from '../components/DocumentForm';
 import { DocumentDataGridModal } from '../components/DocumentDataGridModal/DocumentDataGridModal';
 import { useDocuments } from '../hooks/useDocuments';
 import { useDocumentTypes } from '../hooks/useDocumentTypes';
+import type { DocumentType } from '../../../domain/models/DocumentType';
 import { Grid, Box, Typography, Dialog, DialogTitle, DialogContent, DialogActions, Button, Container } from '@mui/material';
 import type { Document } from '../../../domain/models/Document';
 import ModalMensaje from '../components/Modals/Modalmessage';
@@ -31,6 +32,14 @@ export function HomePage() {
     closeModal, // Destructure from useDocuments
   } = useDocuments();
   const { documentTypes } = useDocumentTypes();
+
+  useEffect(() => {
+    console.log('Documents:', documents);
+    console.log('Document Types:', documentTypes);
+    // Expose data to window for inspection
+    (window as any).documents = documents;
+    (window as any).documentTypes = documentTypes;
+  }, [documents, documentTypes]);
 
   const [editingDocument, setEditingDocument] = useState<Document | null>(null);
   const [viewingDocument, setViewingDocument] = useState<Document | null>(null);
@@ -136,8 +145,8 @@ export function HomePage() {
 
             {/* Opción B: envolver para devolver void */}
             <DocumentForm
-              onSubmit={(d) => { void handleAddDocumentSubmit(d); }}
-              documentTypes={documentTypes}
+              onSubmit={(d) => { void handleAddDocumentSubmit(d as Omit<Document, 'id' | 'status'>); }}
+              // Removed documentTypes prop
             />
           </Box>
         </Grid>
@@ -159,7 +168,7 @@ export function HomePage() {
             // Opción B: envolver para devolver void
             <DocumentForm
               onSubmit={(d) => { void handleUpdateSubmit(d as Document); }}
-              documentTypes={documentTypes}
+              // Removed documentTypes prop
               initialData={editingDocument}
             />
           )}

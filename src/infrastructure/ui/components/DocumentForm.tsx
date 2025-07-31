@@ -1,16 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import {
-    TextField,
-    Button,
-    Box,
-    MenuItem,
-    Select,
-    InputLabel,
-    FormControl,
-} from '@mui/material';
+import type { DocumentType } from '../../../domain/models/DocumentType';
+import { TextField, Button, Box, MenuItem, Select, InputLabel, FormControl, } from '@mui/material';
 import type { SelectChangeEvent } from '@mui/material/Select';
 import type { Document } from '../../../domain/models/Document';
-import type { DocumentType } from '../../../domain/models/DocumentType';
 import { ResponsiveDateTimePicker } from '../components/datepicker/DatePicker';
 import { LocalizationProvider } from '@mui/x-date-pickers/LocalizationProvider';
 import { AdapterDayjs } from '@mui/x-date-pickers/AdapterDayjs';
@@ -19,6 +11,7 @@ import dayjs, { Dayjs } from 'dayjs';
 import utc from 'dayjs/plugin/utc';
 import timezone from 'dayjs/plugin/timezone';
 import 'dayjs/locale/es';
+import { useDocumentTypeContext } from '../../../context/DocumentTypeContext'; // Import the context hook
 
 dayjs.extend(utc);
 dayjs.extend(timezone);
@@ -26,7 +19,6 @@ dayjs.tz.setDefault('America/Bogota');
 
 interface Props {
     onSubmit: (doc: Omit<Document, 'id' | 'status'> | Document) => void;
-    documentTypes: DocumentType[];
     initialData?: Document;
 }
 
@@ -34,7 +26,9 @@ interface DocumentFormState extends Omit<Document, 'id' | 'status' | 'creationDa
     creationDate: Dayjs | null;
 }
 
-export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
+export function DocumentForm({ onSubmit, initialData }: Props) { // Removed documentTypes prop
+    const { documentTypes } = useDocumentTypeContext(); // Use context to get documentTypes
+
     const [form, setForm] = useState<DocumentFormState>(() => {
         const initialCreationDate = initialData?.creationDate
             ? dayjs(initialData.creationDate).tz()
@@ -62,6 +56,19 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
             });
         }
     }, [initialData]);
+
+    // Add this useEffect to handle default selection when documentTypes are loaded
+    useEffect(() => {
+        // If no initial data is provided and documentTypes are available,
+        // and the form's documentTypeId is still the default empty string,
+        // set it to the ID of the first document type.
+        if (!initialData && documentTypes.length > 0 && form.documentTypeId === '') {
+            setForm(prevForm => ({
+                ...prevForm,
+                documentTypeId: documentTypes[0].id,
+            }));
+        }
+    }, [documentTypes, initialData]);
 
     const handleDateChange = (date: Dayjs | null) => {
         setForm(prevForm => ({ ...prevForm, creationDate: date }));
@@ -92,7 +99,7 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
         }));
     };
 
-    const handleSelectChange = (e: SelectChangeEvent) => {
+    const handleSelectChange = (e: SelectChangeEvent<string>) => { // Explicitly typed SelectChangeEvent
         const { name, value } = e.target;
         setForm(prevForm => ({
             ...prevForm,
@@ -105,6 +112,11 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
 
         if (!form.name || !form.documentTypeId || !form.creationDate || !form.description || (!initialData && !form.fileContent)) {
             alert('Por favor, complete todos los campos obligatorios y adjunte un archivo para nuevos documentos.');
+            return;
+        }
+
+        if (!form.documentTypeId) {
+            alert('Por favor, seleccione un tipo de documento.');
             return;
         }
 
@@ -166,7 +178,7 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
                         label="Tipo de Documento"
                         onChange={handleSelectChange}
                     >
-                        {documentTypes.map((type) => (
+                        {documentTypes.map((type: DocumentType) => (
                             <MenuItem key={type.id} value={type.id}>
                                 {type.name}
                             </MenuItem>

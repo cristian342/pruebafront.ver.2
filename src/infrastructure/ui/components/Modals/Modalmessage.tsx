@@ -9,12 +9,7 @@ import InfoIcon from '@mui/icons-material/Info';
 import { ModalMensajeProps, ResultadoTipo } from './Modalmessage.types';
 
 // Componente CircularProgressWithLabel
-interface CircularProgressWithLabelProps {
-  value: number; // This will be the progress percentage (0-100)
-  displayValue: number; // This will be the countdown number (10-1)
-}
-
-const CircularProgressWithLabel: React.FC<CircularProgressWithLabelProps> = ({ value, displayValue }) => {
+const CircularProgressWithLabel: React.FC<{ value: number; displayValue: number }> = ({ value, displayValue }) => {
   return (
     <Box sx={{ position: 'relative', display: 'inline-flex' }}>
       <CircularProgress variant="determinate" value={value} size={60} thickness={5} />
@@ -58,34 +53,28 @@ const ModalMensaje: React.FC<ModalMensajeProps> = ({
   const [remainingTime, setRemainingTime] = useState(timer / 1000);
 
   useEffect(() => {
-    if (!open || !timer) {
-      setRemainingTime(timer / 1000);
-      return;
+    if (open && timer) {
+      setRemainingTime(timer / 1000); // Reinicia el tiempo cada vez que se abre
+
+      const intervalId = setInterval(() => {
+        setRemainingTime((prevTime) => {
+          if (prevTime <= 1) {
+            clearInterval(intervalId);
+            onClose(); // Cierra el modal cuando el tiempo llega a 0
+            return 0;
+          }
+          return prevTime - 1;
+        });
+      }, 1000);
+
+      return () => {
+        clearInterval(intervalId); // Limpia el intervalo si el componente se desmonta o el modal se cierra
+      };
     }
-
-    setRemainingTime(timer / 1000);
-
-    const interval = setInterval(() => {
-      setRemainingTime((prevTime) => {
-        const newTime = prevTime - 1;
-        if (newTime <= 0) {
-          clearInterval(interval);
-          onClose();
-          return 0;
-        }
-        return newTime;
-      });
-    }, 1000);
-
-    return () => {
-      clearInterval(interval);
-    };
   }, [open, timer, onClose]);
 
-  const progress = useMemo(() => {
-    if (!timer) return 100;
-    return (remainingTime * 1000 / timer) * 100;
-  }, [remainingTime, timer]);
+  // Deriva el progreso directamente del tiempo restante para evitar estados redundantes
+  const progress = timer > 0 ? (remainingTime * 1000 / timer) * 100 : 0;
 
   // IDs para accesibilidad (aria-labelledby, aria-describedby)
   const titleId = 'modal-mensaje-title';

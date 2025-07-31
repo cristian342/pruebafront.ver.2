@@ -4,7 +4,7 @@ import {
   useMediaQuery, useTheme, TextField,
 } from '@mui/material';
 import {
-  DataGrid, GridColDef, GridActionsCellItem, GridRowParams,
+  DataGrid, GridColDef, GridActionsCellItem, GridRowParams, GridValueGetter,
 } from '@mui/x-data-grid';
 import DeleteIcon from '@mui/icons-material/Delete';
 import EditIcon from '@mui/icons-material/Edit';
@@ -36,10 +36,11 @@ export function DocumentDataGridModal({
   const [filterName, setFilterName] = useState('');
   const [filterType, setFilterType] = useState('');
   const [filterDate, setFilterDate] = useState('');
-  const [filterStatus, setFilterStatus] = useState('');
+  const [filterStatus, setFilterStatus] = useState('active');
 
-  const getDocumentTypeName = (id: string) => {
-    const type = documentTypes.find(dt => dt.id === id);
+  const getDocumentTypeName = (id: string | null | undefined) => {
+    if (!id) return 'Tipo Desconocido';
+    const type = documentTypes.find(dt => String(dt.id) === String(id));
     return type ? type.name : 'Tipo Desconocido';
   };
 
@@ -77,7 +78,7 @@ const columns: GridColDef[] = useMemo(() => {
       headerName: 'Tipo',
       flex: 1,
       minWidth: 120,
-      valueGetter: (params: any) => getDocumentTypeName(params.value),
+      renderCell: (params) => getDocumentTypeName(params.row.documentTypeId),
     },
     {
       field: 'creationDate',
