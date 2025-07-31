@@ -19,7 +19,14 @@ export class LocalStorageDocumentRepository implements DocumentRepository {
     const raw = localStorage.getItem(STORAGE_KEY); // Obtiene la cadena JSON de localStorage
     if (!raw) return []; // Si no hay datos, retorna un array vacío
     try {
-      return JSON.parse(raw); // Intenta parsear la cadena JSON
+      const documents: Document[] = JSON.parse(raw); // Intenta parsear la cadena JSON
+      // Asegura que cada documento tenga una creationDate válida
+      return documents.map(doc => ({
+        ...doc,
+        creationDate: doc.creationDate && !isNaN(new Date(doc.creationDate).getTime())
+          ? doc.creationDate
+          : new Date().toISOString().split('T')[0] // Asigna la fecha actual si es inválida o falta
+      }));
     } catch (error) {
       console.error('Error parsing documents from localStorage:', error); // Registra el error si el parseo falla
       return []; // Retorna un array vacío en caso de error de parseo
@@ -49,8 +56,24 @@ export class LocalStorageDocumentRepository implements DocumentRepository {
    * @returns Una promesa que resuelve con un array de Documento.
    */
   async getAll(): Promise<Document[]> {
-    const docs = await this.getRawAll(); // Obtiene todos los documentos sin procesar
-    return docs; // Retorna todos los documentos, sin filtrar por estado
+    let docs = await this.getRawAll(); // Obtiene todos los documentos sin procesar
+    let changed = false;
+    // Asegura que cada documento tenga una creationDate válida y la persiste si es necesario
+    docs = docs.map(doc => {
+      if (!doc.creationDate || isNaN(new Date(doc.creationDate).getTime())) {
+        changed = true;
+        return {
+          ...doc,
+          creationDate: new Date().toISOString().split('T')[0] // Asigna la fecha actual si es inválida o falta
+        };
+      }
+      return doc;
+    });
+
+    if (changed) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(docs)); // Persiste los cambios si alguna fecha fue corregida
+    }
+    return docs; // Retorna todos los documentos, con fechas corregidas si fue necesario
   }
 
   /**

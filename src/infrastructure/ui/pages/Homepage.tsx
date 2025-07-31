@@ -82,11 +82,10 @@ export function HomePage() {
     }
   };
 
-  const handleUpdateSubmit = async (docData: Omit<Document, 'id' | 'status'>) => {
+  const handleUpdateSubmit = async (docData: Document) => {
     if (!editingDocument) return;
-    const updatedDoc: Document = { ...editingDocument, ...docData };
     // Modal logic moved to useDocuments hook
-    await updateDocument(updatedDoc);
+    await updateDocument(docData);
     setOpenEditDialog(false);
     setEditingDocument(null);
   };
@@ -159,7 +158,7 @@ export function HomePage() {
           {editingDocument && (
             // Opción B: envolver para devolver void
             <DocumentForm
-              onSubmit={(d) => { void handleUpdateSubmit(d); }}
+              onSubmit={(d) => { void handleUpdateSubmit(d as Document); }}
               documentTypes={documentTypes}
               initialData={editingDocument}
             />

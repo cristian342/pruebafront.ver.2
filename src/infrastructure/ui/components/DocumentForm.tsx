@@ -25,9 +25,9 @@ dayjs.extend(timezone);
 dayjs.tz.setDefault('America/Bogota');
 
 interface Props {
-    onSubmit: (doc: Omit<Document, 'id' | 'status'>) => void;
+    onSubmit: (doc: Omit<Document, 'id' | 'status'> | Document) => void;
     documentTypes: DocumentType[];
-    initialData?: Omit<Document, 'id' | 'status'>;
+    initialData?: Document;
 }
 
 interface DocumentFormState extends Omit<Document, 'id' | 'status' | 'creationDate'> {
@@ -110,10 +110,18 @@ export function DocumentForm({ onSubmit, documentTypes, initialData }: Props) {
 
         const dateString = form.creationDate ? form.creationDate.format('YYYY-MM-DD') : '';
 
-        onSubmit({
-            ...form,
-            creationDate: dateString,
-        });
+        if (initialData) {
+            onSubmit({
+                ...initialData,
+                ...form,
+                creationDate: dateString,
+            });
+        } else {
+            onSubmit({
+                ...form,
+                creationDate: dateString,
+            });
+        }
 
         if (!initialData) {
             setForm({

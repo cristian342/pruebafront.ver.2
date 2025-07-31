@@ -1,6 +1,6 @@
 // Modalmessage.tsx
-import React, { useEffect, useState } from 'react';
-import { Modal, Box, Typography, Divider, IconButton, LinearProgress, CircularProgress } from '@mui/material';
+import React, { useEffect, useState, useMemo } from 'react';
+import { Modal, Box, Typography, Divider, IconButton, CircularProgress } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import ErrorIcon from '@mui/icons-material/Error';
@@ -9,10 +9,6 @@ import InfoIcon from '@mui/icons-material/Info';
 import { ModalMensajeProps, ResultadoTipo } from './Modalmessage.types';
 
 // Componente CircularProgressWithLabel
-interface CircularProgressWithLabelProps {
-  value: number;
-}
-
 interface CircularProgressWithLabelProps {
   value: number; // This will be the progress percentage (0-100)
   displayValue: number; // This will be the countdown number (10-1)
@@ -52,64 +48,44 @@ const iconos: Record<ResultadoTipo, React.ReactElement> = {
 
 // Componente funcional ModalMensaje
 const ModalMensaje: React.FC<ModalMensajeProps> = ({
-  open, // Propiedad para controlar si el modal está abierto o cerrado
-  onClose, // Función para cerrar el modal
-  resultado, // Tipo de resultado (exito, error, peligro, info) para determinar el icono
-  mensajeModal, // Mensaje a mostrar dentro del modal
-  timer = 10000, // Duración del temporizador de autocierre en milisegundos (por defecto 10 segundos)
+  open,
+  onClose,
+  resultado,
+  mensajeModal,
+  timer = 10000,
+  actions,
 }) => {
-  // Estado para el tiempo restante del temporizador (en segundos)
   const [remainingTime, setRemainingTime] = useState(timer / 1000);
-  const [progress, setProgress] = useState(100); // State for the circular progress (0-100)
 
-  // Efecto para manejar el autocierre y el contador de tiempo
   useEffect(() => {
-    // Si el modal no está abierto o no hay temporizador, reinicia los estados y sale
     if (!open || !timer) {
-      setRemainingTime(timer / 1000); // Reinicia el tiempo restante
-      setProgress(100); // Reinicia el progreso
+      setRemainingTime(timer / 1000);
       return;
     }
 
-    // Inicializa el tiempo restante y el progreso cuando el modal se abre
     setRemainingTime(timer / 1000);
-    setProgress(100);
 
-    // Intervalo para actualizar el tiempo restante y el progreso cada segundo
     const interval = setInterval(() => {
       setRemainingTime((prevTime) => {
         const newTime = prevTime - 1;
         if (newTime <= 0) {
-          clearInterval(interval); // Detiene el intervalo si el tiempo se agota
-          onClose(); // Cierra el modal
+          clearInterval(interval);
+          onClose();
           return 0;
         }
-        return newTime; // Decrementa el tiempo
-      });
-
-      setProgress((prevProgress) => {
-        // Calculate the decrement based on the total timer duration
-        const decrement = 100 / (timer / 1000);
-        const newProgress = prevProgress - decrement;
-        if (newProgress <= 0) {
-          return 0;
-        }
-        return newProgress;
+        return newTime;
       });
     }, 1000);
 
-    // Temporizador principal para cerrar el modal después de la duración especificada
-    const timeout = setTimeout(() => {
-      clearInterval(interval); // Limpia el intervalo del contador y progreso
-      onClose(); // Cierra el modal
-    }, timer);
-
-    // Función de limpieza que se ejecuta cuando el componente se desmonta o las dependencias cambian
     return () => {
-      clearTimeout(timeout); // Limpia el temporizador principal
-      clearInterval(interval); // Limpia el intervalo del contador y progreso
+      clearInterval(interval);
     };
-  }, [open, timer, onClose]); // Dependencias del efecto: open, timer, onClose
+  }, [open, timer, onClose]);
+
+  const progress = useMemo(() => {
+    if (!timer) return 100;
+    return (remainingTime * 1000 / timer) * 100;
+  }, [remainingTime, timer]);
 
   // IDs para accesibilidad (aria-labelledby, aria-describedby)
   const titleId = 'modal-mensaje-title';
@@ -218,13 +194,18 @@ const ModalMensaje: React.FC<ModalMensajeProps> = ({
           </Typography>
         </Box>
 
-        {/* Sección del temporizador y barra de progreso, solo si hay un temporizador definido */}
         {timer && (
           <Box sx={{ mt: 3, width: '100%', display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
             <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
               Esta ventana se cerrará en:
             </Typography>
             <CircularProgressWithLabel value={progress} displayValue={remainingTime} />
+          </Box>
+        )}
+
+        {actions && (
+          <Box sx={{ mt: 2, display: 'flex', justifyContent: 'flex-end', gap: 1 }}>
+            {actions}
           </Box>
         )}
       </Box>

@@ -18,6 +18,7 @@ export const createDocument = (repo: DocumentRepository) => {
     const newDoc: Document = {
       ...data, // Copia todas las propiedades de 'data'
       id: crypto.randomUUID(), // Genera un ID único universal (UUID) para el documento
+      creationDate: new Date().toISOString().split('T')[0], // Establece la fecha de creación actual en formato YYYY-MM-DD
       status: 'active' // Establece el estado inicial del documento como 'activo'
     };
     await repo.save(newDoc); // Guarda el nuevo documento en el repositorio
